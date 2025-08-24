@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center gap-6 p-6 text-[#fff] min-h-screen pt-180">
+    <div className="flex flex-col items-center gap-6 p-6 text-[#fff]">
       <h1 className="text-3xl md:text-5xl font-semibold text-center">
         Vídeos que impulsionam negócios
       </h1>
@@ -16,7 +16,7 @@ export default function Home() {
       <div className="w-full max-w-3xl aspect-video">
         <iframe
           className="w-full h-full rounded-xl shadow-lg"
-          src="https://www.youtube.com/embed/XF_h0suRtTs"
+          src="https://www.youtube.com/embed/PShmr5PnpLw"
           title="YouTube video"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
