@@ -1,17 +1,55 @@
 "use client";
 import { useState } from "react";
 
+// Função para converter links do YouTube em formato de embed
+function getYouTubeEmbedUrl(url: string) {
+  try {
+    const parsedUrl = new URL(url);
+    let videoId = "";
+
+    if (parsedUrl.hostname.includes("youtube.com")) {
+      videoId = parsedUrl.searchParams.get("v") || "";
+    } else if (parsedUrl.hostname.includes("youtu.be")) {
+      videoId = parsedUrl.pathname.slice(1); // pega depois de youtu.be/
+    }
+
+    // Captura parâmetro de tempo (t) para start
+    const start = parsedUrl.searchParams.get("t");
+    const startParam = start ? `?start=${parseInt(start)}` : "";
+
+    return `https://www.youtube.com/embed/${videoId}${startParam}`;
+  } catch {
+    return url;
+  }
+}
+
 function VideoModal({ videoId, onClose }: { videoId: string; onClose: () => void }) {
+  const isYouTube = videoId.includes("youtube") || videoId.includes("youtu.be");
+  const isInstagram = videoId.includes("instagram.com");
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
-      <div className="relative w-full max-w-4xl aspect-video">
-        <iframe
-          className="w-full h-full rounded-xl"
-          src={videoId.includes("youtube") || videoId.includes("youtu.be") ? `${videoId.replace("watch?v=", "embed/")}` : videoId}
-          title="Vídeo"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-        ></iframe>
+      <div className="relative w-full max-w-4xl aspect-video bg-black flex items-center justify-center rounded-xl">
+        {isYouTube ? (
+          <iframe
+            className="w-full h-full rounded-xl"
+            src={getYouTubeEmbedUrl(videoId)}
+            title="Vídeo"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          ></iframe>
+        ) : isInstagram ? (
+          <a
+            href={videoId}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white text-lg underline"
+          >
+            Abrir vídeo no Instagram
+          </a>
+        ) : (
+          <p className="text-white">Não é possível exibir este vídeo diretamente.</p>
+        )}
         <button
           className="absolute top-2 right-2 text-white text-3xl font-bold hover:text-red-500"
           onClick={onClose}
@@ -26,8 +64,11 @@ function VideoModal({ videoId, onClose }: { videoId: string; onClose: () => void
 function VideoCard({ videoId, onClick }: { videoId: string; onClick: () => void }) {
   const isYouTube = videoId.includes("youtube") || videoId.includes("youtu.be");
   const thumb = isYouTube
-    ? `https://img.youtube.com/vi/${videoId.split("v=")[1] || videoId.split("/").pop()}/hqdefault.jpg`
-    : "/thumbnail-placeholder.jpg"; // coloca um placeholder para links que não são YouTube
+    ? `https://img.youtube.com/vi/${videoId.includes("v=")
+      ? new URL(videoId).searchParams.get("v")
+      : videoId.split("/").pop()
+    }/hqdefault.jpg`
+    : "/thumbnail-placeholder.jpg";
 
   return (
     <div
@@ -61,7 +102,6 @@ export default function Home() {
       "https://youtu.be/LpPwcmS_GM8",
       "https://www.youtube.com/watch?v=Qhlu5hvi6XA&t=2770s",
       "https://www.youtube.com/watch?v=TYsiDj5KpEg&t=786s",
-      "https://www.instagram.com/tv/CLIED4rhOYL/",
       "https://www.youtube.com/watch?v=RKJOowdElsY",
     ],
     "Música": [
@@ -85,21 +125,27 @@ export default function Home() {
   const videos = videoAlbums[currentTab];
 
   return (
-    <div className="flex flex-col items-center gap-6 text-white">
-      <h1 className="text-2xl md:text-4xl font-semibold text-center">
-        Quem busca qualidade, escolhe a FRAME FILMS.
+    <div className="flex flex-col items-center gap-6 text-white bg-[#fff] p-6">
+      <h1 className="text-2xl md:text-4xl text-center text-[#6f48a6] font-semibold">
+          O audiovisual que reconstrói histórias e conecta pessoas.
       </h1>
-      <p className="text-center max-w-2xl text-lg md:text-xl">Vídeos</p>
+      <p className="text-center max-w-2xl text-lg md:text-xl text-[#fff] bg-[#6f48a6] p-3 font-semibold rounded-md">Vídeos</p>
 
       {/* Abas */}
-      <div className="flex flex-wrap gap-4 mb-4 justify-center">
+      <div
+        className="
+    grid grid-cols-2 gap-2 mb-4 
+    sm:flex sm:gap-2 sm:justify-start sm:overflow-x-auto sm:no-scrollbar
+  "
+      >
         {Object.keys(videoAlbums).map((albumKey) => (
           <button
             key={albumKey}
             onClick={() => setCurrentTab(albumKey as keyof typeof videoAlbums)}
-            className={`px-4 py-2 rounded-lg font-semibold transition ${
-              currentTab === albumKey ? "bg-blue-600" : "bg-gray-700 hover:bg-gray-600"
-            }`}
+            className={`px-4 py-2 rounded-lg font-semibold transition ${currentTab === albumKey
+                ? "bg-[#e4538d] text-white"
+                : "bg-gray-700 hover:bg-gray-600 text-white"
+              }`}
           >
             {albumKey}
           </button>

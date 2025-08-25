@@ -2,14 +2,22 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center gap-6 p-6 text-[#fff]">
+    <div className="flex flex-col items-center gap-6 p-6 text-[#fff] bg-[#b851a2]">
+      
+      {/* Logo acima do texto */}
+      <Image
+        src="/image3.png"      // substitua pelo caminho do seu logo
+        alt="Logo da Empresa"
+        width={150}          // ajuste o tamanho conforme necessário
+        height={150}
+      />
+
       <h1 className="text-3xl md:text-5xl font-semibold text-center">
-        Vídeos que impulsionam negócios
+         Construindo novas narrativas para o futuro
       </h1>
 
       <p className="text-center max-w-2xl text-lg md:text-xl">
-        Dê forma às suas ideias e conquiste a atenção do seu público com a
-        produtora audiovisual mais completa do Brasil.
+          Através do audiovisual, reconstruo imaginários e recrio histórias que fortalecem as narrativas do território periférico.
       </p>
 
       {/* Vídeo do YouTube */}
@@ -26,12 +34,19 @@ export default function Home() {
 
       {/* Botão de Orçamento */}
       <a
-        href="https://wa.me/5599999999999?text=Olá! Gostaria de solicitar um orçamento."
+        href="https://wa.me/5511967302340"
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition"
+        className="flex items-center gap-2 p-3 bg-green-500 text-white rounded-full"
       >
-        SOLICITE O SEU ORÇAMENTO
+        <Image
+          src="/whatsAppLogo.jpg"
+          alt="WhatsApp Logo"
+          width={30}
+          height={30}
+          className="rounded-full"
+        />
+        <span>Entre em contato via WhatsApp</span>
       </a>
     </div>
   );
