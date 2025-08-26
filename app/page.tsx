@@ -6,6 +6,7 @@ import Parte4 from "@/app/componente/parte4"
 import Parte5 from "@/app/componente/parte5"
 import Parte6 from "@/app/componente/parte6"
 import Parte7 from "@/app/componente/parte7"
+import Parte8 from "@/app/componente/parte8"
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <Parte2/>
         <Parte3/>
         <Parte4/>
+        <Parte8/>
         <Parte5/>
         <Parte6/>
         <Parte7/>

@@ -61,14 +61,13 @@ const albums = {
   ],
 };
 
-// Mapear nomes amigáveis para os botões
 const albumNames: Record<string, string> = {
   reclusaZonaAgbara: "Reclusa Zona Agbara",
-  circuitoVozesDoCorpo: "Circuito Vozes do Corpo",
-  corposNegrosESobrevidas: "Corpos Negros e Sobrevidas",
-  dancaPilaresZonaAgbara: "Dança Pilares Zona Agbara",
-  zonaAgbara: "Zona Agbara",
-  regurgitarOMundo: "Regurgitar o Mundo",
+  circuitoVozesDoCorpo: "Circuito Vozes do Corpo - Cia Sansacroma",
+  corposNegrosESobrevidas: "VALA: Corpos Negros e Sobrevidas - Cia Sansacroma",
+  dancaPilaresZonaAgbara: "Web serie: 'Pilares' Zona Agbara",
+  zonaAgbara: "Espetaculo: 'Pilares' Zona Agbara",
+  regurgitarOMundo: "Engasgadas, um rito para regurgitar o mundo",
 };
 
 export default function Home() {

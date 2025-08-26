@@ -6,14 +6,14 @@ export default function Home() {
       
       {/* Logo acima do texto */}
       <Image
-        src="/image3.png"      // substitua pelo caminho do seu logo
+        src="/image69.png"      // substitua pelo caminho do seu logo
         alt="Logo da Empresa"
         width={150}          // ajuste o tamanho conforme necessário
         height={150}
       />
 
-      <h1 className="text-3xl md:text-5xl font-semibold text-center">
-         Construindo novas narrativas para o futuro
+      <h1 className="text-3xl md:text-5xl font-semibold text-center max-w-300">
+          Traduzo a força da cena em imagens que respiram sensibilidade, movimento e verdade.
       </h1>
 
       <p className="text-center max-w-2xl text-lg md:text-xl">
@@ -37,7 +37,7 @@ export default function Home() {
         href="https://wa.me/5511967302340"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 p-3 bg-green-500 text-white rounded-full"
+        className="flex items-center gap-2 p-3 bg-green-500 text-white rounded-full font-semibold"
       >
         <Image
           src="/whatsAppLogo.jpg"
@@ -46,7 +46,7 @@ export default function Home() {
           height={30}
           className="rounded-full"
         />
-        <span>Entre em contato via WhatsApp</span>
+        <span>Faça seu orçamento</span>
       </a>
     </div>
   );

@@ -83,7 +83,7 @@ const albumNames: Record<string, string> = {
 
 export default function Home() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [currentAlbum, setCurrentAlbum] = useState<keyof typeof albums>("coletivoAMEM");
+  const [currentAlbum, setCurrentAlbum] = useState<keyof typeof albums>("exposicaoMatriarcas");
 
   // Scroll automático do carrossel
   useEffect(() => {
@@ -108,7 +108,7 @@ export default function Home() {
   const displayImages = [...albums[currentAlbum], ...albums[currentAlbum]];
 
   return (
-    <div className="flex flex-col items-center gap-6 text-white bg-[#fff] p-3">
+    <div className="flex flex-col items-center gap-6 text-white bg-[#fff] p-1">
       <p className="text-center max-w-2xl text-lg md:text-xl text-[#fff] bg-[#6f48a6] p-3 font-semibold rounded-md">
         Autorais e Música
       </p>

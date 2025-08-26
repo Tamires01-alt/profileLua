@@ -38,7 +38,7 @@ export default function Footer() {
         {/* Imagem + ícones */}
         <div className="flex flex-col items-center md:items-start gap-4 md:w-60">
           <Image
-            src="/image3.png"
+            src="/image69.png"
             alt="Imagem de Fundo"
             quality={100}
             width={180}
