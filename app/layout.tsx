@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/image3.png" />
+        <link rel="icon" href="/image69.png" />
         <title>Lua Santana</title>
       </head>
       <body

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-// Álbuns com nomes descritivos
 const albums = {
   exposicaoMatriarcas: [
     "/FOTOGRAFIAS/Autorais/ExposiçãoMatriarcas/EQUIPEIMG_0316.jpg",
@@ -32,7 +31,6 @@ const albums = {
     "/FOTOGRAFIAS/ColetivoAMEM/Santana.jpg",
   ],
   exposicaoCoxia: [
-    "/FOTOGRAFIAS/Autorais/ExposiçãodeFotosCoxia/Impressão-1.jpg",
     "/FOTOGRAFIAS/Autorais/ExposiçãodeFotosCoxia/Impressão-1.jpg",
     "/FOTOGRAFIAS/Autorais/ExposiçãodeFotosCoxia/Impressão-2.jpg",
     "/FOTOGRAFIAS/Autorais/ExposiçãodeFotosCoxia/Impressão-3.jpg",
@@ -72,7 +70,6 @@ const albums = {
   ],
 };
 
-// Mapear nomes amigáveis para os botões
 const albumNames: Record<string, string> = {
   exposicaoMatriarcas: "Exposição Matriarcas",
   coletivoAMEM: "Coletivo AMEM",
@@ -85,7 +82,11 @@ export default function Home() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentAlbum, setCurrentAlbum] = useState<keyof typeof albums>("exposicaoMatriarcas");
 
-  // Scroll automático do carrossel
+  // Estados para o modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalIndex, setModalIndex] = useState(0);
+
+  // Scroll automático
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
@@ -113,16 +114,14 @@ export default function Home() {
         Autorais e Música
       </p>
 
-      {/* Botões para alternar entre álbuns */}
+      {/* Botões */}
       <div className="grid grid-cols-2 gap-4 mb-4 sm:flex sm:gap-4">
         {Object.keys(albums).map((key) => (
           <button
             key={key}
             onClick={() => setCurrentAlbum(key as keyof typeof albums)}
             className={`px-4 py-2 rounded-lg font-semibold transition ${
-              currentAlbum === key
-                ? "bg-[#e4538d]"
-                : "bg-gray-700 hover:bg-gray-600"
+              currentAlbum === key ? "bg-[#e4538d]" : "bg-gray-700 hover:bg-gray-600"
             }`}
           >
             {albumNames[key]}
@@ -130,17 +129,57 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Carrossel de imagens */}
+      {/* Carrossel */}
       <div ref={scrollRef} className="flex gap-1 overflow-x-hidden whitespace-nowrap w-screen">
         {displayImages.map((src, index) => (
           <div
             key={index}
-            className="inline-block flex-shrink-0 relative w-[300px] h-[200px] md:w-[500px] md:h-[500px]"
+            onClick={() => {
+              setModalIndex(index % albums[currentAlbum].length);
+              setIsModalOpen(true);
+            }}
+            className="inline-block flex-shrink-0 relative w-[300px] h-[200px] md:w-[500px] md:h-[500px] cursor-pointer"
           >
             <Image src={src} alt={`Foto ${index + 1}`} fill className="object-cover rounded-lg shadow-lg" />
           </div>
         ))}
       </div>
+
+      {/* Modal de tela cheia */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-4 right-4 text-white text-2xl"
+          >
+            ✕
+          </button>
+          <button
+            onClick={() =>
+              setModalIndex((prev) => (prev - 1 + albums[currentAlbum].length) % albums[currentAlbum].length)
+            }
+            className="absolute left-4 text-white text-3xl"
+          >
+            ‹
+          </button>
+          <div className="relative w-[90vw] h-[80vh]">
+            <Image
+              src={albums[currentAlbum][modalIndex]}
+              alt={`Foto ${modalIndex + 1}`}
+              fill
+              className="object-contain rounded-lg"
+            />
+          </div>
+          <button
+            onClick={() =>
+              setModalIndex((prev) => (prev + 1) % albums[currentAlbum].length)
+            }
+            className="absolute right-4 text-white text-3xl"
+          >
+            ›
+          </button>
+        </div>
+      )}
     </div>
   );
 }
